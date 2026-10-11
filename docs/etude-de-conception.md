@@ -58,7 +58,7 @@ Le **gestionnaire de trafic d'un site ou d'un axe routier** importe une vidéo e
 
 - **Baseline simple :** comptage automatique à partir de la détection de mouvement et d'une ligne de franchissement (OpenCV, sans classification YOLO). Elle sera évaluée sur les mêmes vidéos pour comparaison.
 - **Référence de vérité terrain (et non une baseline automatique) :** comptage manuel des véhicules qui franchissent la ligne, avec classe et sens de circulation.
-- **Résultats actuels :** non mesurés au stade de la conception ; ne pas présenter de performance hypothétique comme résultat réel.
+- **Résultats actuels :** non mesurés au stade de la conception.
 
 ### Métrique principale et coût des erreurs
 
