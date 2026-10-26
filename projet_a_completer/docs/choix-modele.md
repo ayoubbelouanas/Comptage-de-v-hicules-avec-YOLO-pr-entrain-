@@ -1,5 +1,5 @@
 # Choix du modèle
-oussama banani
+Oussama BANANI & Ayoub BELOUANAS & Mohamed NEJJARI & Younes LAKBAB
 
 Date : 26/10/2026 · Groupe : S3
 
