@@ -1,0 +1,66 @@
+"""API MaintAI : expose le modèle de prédiction de panne.
+
+Lancement : uvicorn maintai.api.main:app --reload
+"""
+
+from contextlib import asynccontextmanager
+
+from fastapi import APIRouter, FastAPI, HTTPException
+
+from maintai import __version__
+from maintai.api.schemas import HealthOut, PredictionOut, SensorReading
+from maintai.config import get_settings
+from maintai.predict import Predictor
+
+state: dict = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Le modèle est chargé une seule fois, au démarrage, et non à chaque requête
+    try:
+        state["predictor"] = Predictor.load(get_settings())
+    except FileNotFoundError:
+        state["predictor"] = None  # l'API démarre quand même ; /health le signale
+    yield
+    state.clear()
+
+
+app = FastAPI(
+    title="MaintAI API",
+    version=__version__,
+    description="Prédiction de panne à partir de relevés de capteurs.",
+    lifespan=lifespan,
+)
+
+router = APIRouter(prefix="/v1")
+
+
+@app.get("/health", response_model=HealthOut)
+def health() -> HealthOut:
+    return HealthOut(status="ok", model_loaded=state.get("predictor") is not None)
+
+
+@router.post("/predict", response_model=PredictionOut)
+def predict(reading: SensorReading) -> PredictionOut:
+    """Prédit le risque de panne à partir d'un relevé déjà validé.
+
+    Args:
+        reading: Mesures de capteurs validées par le schéma SensorReading.
+
+    Raises:
+        HTTPException: Si le modèle n'est pas chargé, avec le statut 503.
+
+    Returns:
+        PredictionOut: Probabilité de panne, état d'alerte et version du modèle.
+    """
+    predictor = state.get("predictor")
+    if predictor is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Le modèle de prédiction est indisponible.",
+        )
+    return PredictionOut(**predictor.predict(reading.model_dump()))
+
+
+app.include_router(router)
