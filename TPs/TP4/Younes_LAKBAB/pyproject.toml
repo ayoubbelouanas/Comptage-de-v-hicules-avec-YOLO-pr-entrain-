@@ -1,0 +1,42 @@
+# Fiche d'identité du package maintai : lue par pip install et par python -m build
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maintai"
+dynamic = ["version"]  # lue dans maintai/__init__.py (voir plus bas)
+description = "TODO : une phrase qui dit ce que fait le package"
+readme = "README.md"
+requires-python = ">=3.11"
+
+# Bibliothèques nécessaires au fonctionnement de MaintAI.
+# >= indique la version minimale acceptée.
+
+dependencies = [
+    "numpy>=2.0",          # Calcul numérique et génération de données
+    "pandas>=2.2",         # Manipulation des données
+    "scikit-learn>=1.5",   # Entraînement et prédiction ML
+    "joblib>=1.4",         # Sauvegarde et chargement du modèle
+    "httpx>=0.27",         # Client HTTP pour communiquer avec l'API
+]
+
+
+[project.optional-dependencies]
+api = ["fastapi>=0.115", "uvicorn[standard]>=0.30"]
+ui = ["streamlit>=1.40"]
+dev = ["pytest>=8", "ruff"]
+
+
+# Déclarer une commande accessible depuis le terminal.
+[project.scripts]
+
+# Nom de la commande = "module Python:fonction à exécuter"
+maintai-predict = "maintai.cli:main"
+
+
+[tool.setuptools.dynamic]
+version = {attr = "maintai.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["maintai*"]  # seul le dossier maintai/ entre dans le package
