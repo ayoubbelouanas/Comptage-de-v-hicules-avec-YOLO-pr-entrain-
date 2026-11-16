@@ -1,6 +1,6 @@
 # Compte rendu · TP5 : suivre les entraînements (MLflow) et versionner les données (DVC)
 
-**Groupe :** 1  ·  **Membres :** LAKBAB Younes  ·  **Date :** 16/11/2026
+**Groupe :** 1  ·  **Membres :** LAKBAB Younes  ·  **Date :** 16/11/2026 : 12:17
 
 
 ---
