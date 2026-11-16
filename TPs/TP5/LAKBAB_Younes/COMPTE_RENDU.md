@@ -2,8 +2,6 @@
 
 **Groupe :** 1  ·  **Membres :** LAKBAB Younes  ·  **Date :** 16/11/2026
 
-> Remplissez chaque partie dans ce fichier, puis rendez-le avec la pull request du TP5.
-> Collez les sorties du terminal entre les lignes ``` (trois accents graves).
 
 ---
 
