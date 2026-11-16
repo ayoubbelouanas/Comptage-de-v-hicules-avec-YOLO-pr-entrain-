@@ -191,3 +191,16 @@ Dans `docs/adr/004-choix-du-modele.md` : le modèle et le seuil retenus, à part
 ## 8. Ce qui reste flou
 
 …
+
+## GridSearch
+
+Nous avons comparé 25 configurations d’hyperparamètres avec une recherche sur grille. Le run retenu utilise une forêt aléatoire avec `n_estimators=50`, `max_depth=None` et un seuil de décision de `0.3`.
+
+| Modèle retenu | Rappel | Précision | Accuracy | n_train |
+|---|---:|---:|---:|---:|
+| Forêt aléatoire | 0.760 | 0.592 | 0.902 | 4800 |
+
+Run MLflow : `76e846314add4c62a17bce437ecb8d3a`  
+data_md5 : `31ef5ebb63ef2331a31dfe009ef8796a`
+
+Le rappel de 0.760 signifie que le modèle a détecté 76 % des pannes dans l’évaluation enregistrée par MLflow. La précision de 0.592 indique que 59,2 % des alertes émises correspondaient à une panne.
