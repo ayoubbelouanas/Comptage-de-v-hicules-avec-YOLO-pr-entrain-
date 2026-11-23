@@ -189,6 +189,7 @@ Dans `docs/adr/004-choix-du-modele.md` : le modèle et le seuil retenus, à part
 - `git status` avant le commit : `mlflow.db`, `mlruns/`, `data/sensors.csv` ou `.dvc/cache` apparaissaient-ils ? oui / non
 
 ## 8. Ce qui reste flou
+
 …
 
 ## GridSearch
